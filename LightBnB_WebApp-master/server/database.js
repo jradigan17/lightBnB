@@ -7,18 +7,10 @@
 // Imports Required  
 // const properties = require('./json/properties.json');
 // const users = require('./json/users.json');
+const db = require('./db')
 //------------------------------------------
 
-//------------------------------------------
-// Create Connection to Lightbnb Database
-const { Pool } = require('pg');
-const pool = new Pool({
-  user: 'labber',
-  password: '123',
-  host: 'localhost',
-  database: 'lightbnb'
-});
-//------------------------------------------
+
 
 //------------------------------------------
 // Test to Ensure Database Connection
@@ -56,7 +48,7 @@ const getUserWithEmail = function(email) {
 
   const valuesProperties = [email];
 
-  return pool.query(queryString, valuesProperties)
+  return db.query(queryString, valuesProperties)
   .then(res => {
     console.log(res.rows[0]);
     return Promise.resolve(res.rows[0]);
@@ -83,7 +75,7 @@ const getUserWithId = function(id) {
 
   const valuesProperties = [id];
 
-  return pool.query(queryString, valuesProperties)
+  return db.query(queryString, valuesProperties)
   .then(res => {
     console.log(res.rows[0]);
     return Promise.resolve(res.rows[0]);
@@ -116,7 +108,7 @@ const addUser =  function(user) {
 
   const valuesProperties = [user.name, user.email, user.password];
 
-  return pool.query(queryString, valuesProperties)
+  return db.query(queryString, valuesProperties)
   .then(res => {
     console.log(res.rows[0]);
     return Promise.resolve(res.rows[0]);
@@ -150,9 +142,9 @@ const getAllReservations = function(guest_id, limit = 10) {
 
   const valuesProperties = [guest_id, limit];
 
-  return pool.query(queryString, valuesProperties)
+  return db.query(queryString, valuesProperties)
   .then(res => {
-    console.log(res.rows);
+    // console.log(res.rows);
     return Promise.resolve(res.rows);
   })
   .catch(err => console.error('querry error', err.message));
@@ -236,7 +228,7 @@ const getAllProperties = (options, limit = 10) => {
 
   console.log(queryString, queryParams);
 
-  return pool.query(queryString, queryParams)
+  return db.query(queryString, queryParams)
   .then(res => {
     // console.log(res.rows);
     return res.rows;
@@ -270,7 +262,7 @@ const addProperty = function(property) {
 
   const valuesProperties = [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night, property.street, property.city, property.province, property.post_code, property.country, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms];
 
-  return pool.query(queryString, valuesProperties)
+  return db.query(queryString, valuesProperties)
   .then(res => {
     console.log(res.rows[0]);
     return Promise.resolve(res.rows[0]);
