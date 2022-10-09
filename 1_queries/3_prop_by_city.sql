@@ -1,4 +1,4 @@
--- Propery by city
+-- Property by city
 -- Show specific details about properties located in Vancouver including their average rating
 
 SELECT properties.id, title, cost_per_night, AVG(property_reviews.rating) AS average_rating
